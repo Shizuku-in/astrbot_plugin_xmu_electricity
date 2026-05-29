@@ -2,16 +2,6 @@
 
 通过厦门大学电费系统接口查询宿舍余额、最近用电和最近充值记录。
 
-## 安装
-
-把整个 `astrbot_plugin_xmu_electricity` 目录放到 AstrBot 的插件目录：
-
-```text
-AstrBot/data/plugins/astrbot_plugin_xmu_electricity
-```
-
-然后在 AstrBot WebUI 重载插件。
-
 ## 配置
 
 在插件配置里填写：
