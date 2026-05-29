@@ -16,6 +16,12 @@
     "type": "string",
     "default": "https://elec-app.xmu.edu.cn"
   },
+  "user_agent": {
+    "description": "请求 User-Agent",
+    "type": "text",
+    "hint": "可留空。若 Cookie 一直被重定向到 /auth/gettoken，可复制 Fiddler 中成功 /sdk/getMe 请求的 User-Agent。",
+    "default": ""
+  },
   "page_size": {
     "description": "详细查询时读取的最近用电记录数量",
     "type": "int",

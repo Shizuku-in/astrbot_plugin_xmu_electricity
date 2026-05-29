@@ -8,11 +8,14 @@
 
 - `cookie`: 抓包获取 `https://elec-app.xmu.edu.cn/sdk/getMe` 请求头中的 `Cookie`
 - `ssbh`: 宿舍编号，可留空，插件会从 `/sdk/getMe` 自动读取
+- `user_agent`: 可留空；如果 Cookie 一直被重定向到 `/auth/gettoken`，复制成功 `/sdk/getMe` 请求里的 `User-Agent`
 - `warning_enabled`: 是否启用余额预警
 - `warning_threshold`: 预警阈值，单位为元
 - `warning_message`: 预警提示文本，支持 `{balance}` 和 `{threshold}` 占位符
 
 如果查询提示 Cookie 过期，请在微信里重新打开电费页面，再复制新的 Cookie。
+
+Cookie 必须来自已经成功返回 JSON 的 `/sdk/getMe` 请求。不要复制 `/auth/gettoken`、`/auth/getuser?code=...` 或第一次 `/sdk/bill` 跳转过程里的 `JSESSIONID`。
 
 ## 命令
 

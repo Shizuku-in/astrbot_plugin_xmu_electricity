@@ -68,14 +68,15 @@ class XmuElectricityPlugin(Star):
         base_url = str(self.config.get("base_url", "https://elec-app.xmu.edu.cn")).rstrip("/")
         timeout = float(self.config.get("timeout_seconds", 10.0) or 10.0)
         page_size = int(self.config.get("page_size", 10) or 10)
+        user_agent = str(self.config.get("user_agent", "")).strip() or (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0 Safari/537.36 MicroMessenger"
+        )
 
         headers = {
             "Cookie": cookie,
             "Referer": f"{base_url}/sdk/bill",
-            "User-Agent": (
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0 Safari/537.36 MicroMessenger"
-            ),
+            "User-Agent": user_agent,
             "Accept": "application/json, text/plain, */*",
         }
 
@@ -109,7 +110,7 @@ class XmuElectricityPlugin(Star):
         location = response.headers.get("location", "")
         content_type = response.headers.get("content-type", "")
 
-        if response.status_code in {301, 302, 303, 307, 308} and "open.weixin.qq.com" in location:
+        if response.status_code in {301, 302, 303, 307, 308} and self._is_auth_redirect(location):
             raise AuthExpiredError()
         if response.status_code in {401, 403}:
             raise AuthExpiredError()
@@ -119,10 +120,17 @@ class XmuElectricityPlugin(Star):
         response.raise_for_status()
         return response.json()
 
+    def _is_auth_redirect(self, location: str) -> bool:
+        return (
+            "open.weixin.qq.com" in location
+            or "/auth/gettoken" in location
+            or "/auth/getuser" in location
+        )
+
     def _format_report(self, me: dict[str, Any], usage: Any, recharges: Any, detail: bool) -> str:
         room_info = self._room_info(me)
         lines = [
-            "厦大电费",
+            "电费查询结果",
             f"房间：{room_info['building_name']} #{room_info['room_name']}",
             f"当前余额：{room_info['balance_text']} 元",
         ]
@@ -165,7 +173,7 @@ class XmuElectricityPlugin(Star):
         if alert:
             return "\n".join(
                 [
-                    "厦大电费预警",
+                    "电费预警",
                     f"房间：{room_info['building_name']} #{room_info['room_name']}",
                     f"当前余额：{room_info['balance_text']} 元",
                     alert,
@@ -178,7 +186,7 @@ class XmuElectricityPlugin(Star):
 
         return "\n".join(
             [
-                "厦大电费预警",
+                "电费预警",
                 f"房间：{room_info['building_name']} #{room_info['room_name']}",
                 f"当前余额：{room_info['balance_text']} 元",
                 f"状态：余额不低于预警阈值 {threshold:g} 元。",
