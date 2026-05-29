@@ -147,8 +147,8 @@ class XmuElectricityPlugin(Star):
             lines.append("")
             lines.append("最近用电：")
             for day, values in self._summarize_usage(usage_items).items():
-                detail_text = "，".join(f"{kind} {amount:g} 度" for kind, amount in values["by_kind"].items())
-                lines.append(f"{day}：共 {values['total']:g} 度（{detail_text}）")
+                detail_text = "，".join(f"{kind} {amount:g} 元" for kind, amount in values["by_kind"].items())
+                lines.append(f"{day}：共 {values['total']:g} 元（{detail_text}）")
         else:
             lines.append("")
             lines.append("最近用电：暂无数据")
