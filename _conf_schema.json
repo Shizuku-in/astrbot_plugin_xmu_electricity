@@ -17,7 +17,7 @@
     "default": "https://elec-app.xmu.edu.cn"
   },
   "page_size": {
-    "description": "最近用电记录数量",
+    "description": "详细查询时读取的最近用电记录数量",
     "type": "int",
     "default": 10
   },
@@ -25,5 +25,22 @@
     "description": "请求超时时间",
     "type": "float",
     "default": 10.0
+  },
+  "warning_enabled": {
+    "description": "是否启用电费余额预警",
+    "type": "bool",
+    "default": false
+  },
+  "warning_threshold": {
+    "description": "电费预警阈值，单位：元",
+    "type": "float",
+    "hint": "例如填 50，余额低于 50 元时会在查询结果里附带预警，也可用 /电费预警 单独检查。",
+    "default": 50.0
+  },
+  "warning_message": {
+    "description": "预警提示文本",
+    "type": "string",
+    "hint": "支持 {balance} 和 {threshold} 两个占位符。",
+    "default": "电费预警：当前余额 {balance} 元，已低于预警阈值 {threshold} 元。"
   }
 }
