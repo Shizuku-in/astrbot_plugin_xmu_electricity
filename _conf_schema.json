@@ -1,0 +1,29 @@
+{
+  "cookie": {
+    "description": "elec-app.xmu.edu.cn 的登录 Cookie",
+    "type": "text",
+    "hint": "从 Fiddler/浏览器复制请求头里的 Cookie，例如 JSESSIONID=...；不要包含换行。",
+    "default": ""
+  },
+  "ssbh": {
+    "description": "宿舍编号",
+    "type": "string",
+    "hint": "可留空，插件会从 /sdk/getMe 自动读取；抓包里看到的 ssbh 形如 42131015。",
+    "default": ""
+  },
+  "base_url": {
+    "description": "电费系统地址",
+    "type": "string",
+    "default": "https://elec-app.xmu.edu.cn"
+  },
+  "page_size": {
+    "description": "最近用电记录数量",
+    "type": "int",
+    "default": 10
+  },
+  "timeout_seconds": {
+    "description": "请求超时时间",
+    "type": "float",
+    "default": 10.0
+  }
+}

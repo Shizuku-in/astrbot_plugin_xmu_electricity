@@ -1,0 +1,7 @@
+name: astrbot_plugin_xmu_electricity
+desc: Query XMU electricity balance, daily usage, and recharge records.
+version: v0.1.0
+author: local
+repo: ""
+display_name: 厦门大学电费查询
+short_desc: 查询厦大宿舍电费余额、用电和充值记录
